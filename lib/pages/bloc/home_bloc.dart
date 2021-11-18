@@ -22,6 +22,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       case HomeFetchListWithEmptyListEvent:
         yield await _fetchListWithEmptyList();
         break;
+      case HomeAddListEvent:
+        yield await _addItem(event as HomeAddListEvent);
+        break;
+      case HomeRemoveItemListEvent:
+        yield await _removeItem(event as HomeRemoveItemListEvent);
+        break;
     }
   }
 
@@ -29,25 +35,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   /// [por isso é necessário que o estado seja um "HomeState" e que haja um return no final]
 
   Future<HomeState> _fetchList() async {
-    int count = 0;
-    List<String> list = await Future.delayed(
+    List<String> itens = await Future.delayed(
       const Duration(
         seconds: 1,
       ),
       () => <String>[
         'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
-        'Item 5',
-        'Item 6',
-        'Item 7',
-        'Item 8',
-        'Item 9',
-        'Item 10',
       ],
     );
-    return HomeSucessState(list: list);
+    return HomeSucessState(list: itens);
   }
 
   Future<HomeState> _fetchListWithError() async {
@@ -66,5 +62,27 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ),
       () => HomeEmptyListState(),
     );
+  }
+
+  Future<HomeState> _addItem(HomeAddListEvent event) async {
+    final isSuccess = state is HomeSucessState;
+    if (isSuccess) {
+      final previousList = (state as HomeSucessState).list;
+      final newList = List<String>.from(previousList);
+      newList.add(event.item);
+      return HomeSucessState(list: newList);
+    }
+    return state;
+  }
+
+  Future<HomeState> _removeItem(HomeRemoveItemListEvent removeEvent) async {
+    final isSuccess = state is HomeSucessState;
+    if (isSuccess) {
+      final previousRemoveItemList = (state as HomeSucessState).list;
+      final newRemoveItemList = List<String>.from(previousRemoveItemList);
+      newRemoveItemList.remove(removeEvent.itemRemove);
+      return HomeSucessState(list: newRemoveItemList);
+    }
+    return state;
   }
 }

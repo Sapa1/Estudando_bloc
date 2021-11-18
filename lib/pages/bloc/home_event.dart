@@ -16,4 +16,18 @@ class HomeFetchListWithErrorEvent extends HomeEvent {}
 /// [Evento para caso a lista esteja vazia]
 class HomeFetchListWithEmptyListEvent extends HomeEvent {}
 
-class HomeAddEvent extends HomeEvent {}
+class HomeAddListEvent extends HomeEvent {
+  final String item;
+  HomeAddListEvent({required this.item});
+
+  @override
+  List<Object?> get props => [item];
+}
+
+class HomeRemoveItemListEvent extends HomeEvent {
+  final String itemRemove;
+  HomeRemoveItemListEvent({required this.itemRemove});
+
+  @override
+  List<Object?> get props => [itemRemove];
+}
