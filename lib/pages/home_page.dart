@@ -15,8 +15,8 @@ class _HomePageState extends State<HomePage> {
   ///[Instancia uma variável 'X' como um Bloc que foi criado (HomeBloc nesse caso)]
   ///[e passa a variável no initState para que seja inicializado]
   ///[igualando a variável ao BlocProvider que foi criado na home da main]
-  // HomeBloc? bloc;
   int testando = 2;
+  // HomeBloc? bloc;
 
   // @override
   // void initState() {
@@ -33,8 +33,8 @@ class _HomePageState extends State<HomePage> {
       body: BlocBuilder<HomeBloc, HomeState>(
         /// [O bloc também pode ser passado diretamente dentro do construtor]
         /// [do BlocBuilder sem precisar ter sido criado anteriormente]
-        bloc: BlocProvider.of<HomeBloc>(context),
         // bloc: bloc,
+        bloc: BlocProvider.of<HomeBloc>(context),
         builder: (context, state) {
           if (state is HomeSucessState) {
             return Stack(
