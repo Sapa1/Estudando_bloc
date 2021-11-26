@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   ///[Instancia uma variável 'X' como um Bloc que foi criado (HomeBloc nesse caso)]
   ///[e passa a variável no initState para que seja inicializado]
   ///[igualando a variável ao BlocProvider que foi criado na home da main]
-  int testando = 2;
+  int countItem = 2;
   // HomeBloc? bloc;
 
   // @override
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                     child: const Icon(Icons.add),
                     onPressed: () {
                       BlocProvider.of<HomeBloc>(context)
-                          .add(HomeAddListEvent(item: 'Item ${testando++}'));
+                          .add(HomeAddListEvent(item: 'Item ${countItem++}'));
                     },
                   ),
                 ),
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                   child: FloatingActionButton(
                     child: const Icon(Icons.remove),
                     onPressed: () {
-                      testando--;
+                      countItem--;
                       BlocProvider.of<HomeBloc>(context).add(
                         HomeRemoveItemListEvent(
                           itemRemove: state.list.last,
